@@ -3,7 +3,8 @@ import sqlite3
 import datetime
 import calendar
 from tips import python_tips
-from tips import budget_tips
+from tips import budget_tips 
+from tips import cooking_tips
 
 
 # Create a function to initialize the database connection and create the table
@@ -31,7 +32,7 @@ def month_view():
     current_month_num = month_to_num[current_month]
 
     # Display the name of the current month
-    st.write(f"This is the Month View for {current_month}")
+    st.write(f" {current_month}")
 
     # Add a beautiful image as background (replace 'autumn2.png' with your image)
     st.image('images/autumn2.png', use_column_width=True)
@@ -40,8 +41,8 @@ def month_view():
     cal = calendar.month(current_date.year, current_month_num)
     st.text(cal)
     
-    # Display the money-saving tip for the current month
     # Ensure that you have 12 tips in your budget_tips list
+
     current_tip = budget_tips[current_month_num - 1]
     st.markdown(
         f'<div class="tip-card">{current_tip}</div>',
@@ -50,9 +51,25 @@ def month_view():
 
 # Create a function for the week view (you can customize this)
 def week_view():
-    st.write("This is the Week View")
-    # Add your week-specific content here
+    st.write("Cooking Tip for the week 👩🏼‍🍳 ")
+   # Get the current month and year
+    current_date = datetime.datetime.now()
+    current_month = current_date.strftime("%B")
 
+    # Create a dictionary to map month names to their numeric values
+    month_to_num = {month: num for num, month in enumerate(calendar.month_name) if month}
+
+    # Get the numeric value of the current month
+    current_month_num = month_to_num[current_month]
+
+ # Ensure that you have 12 tips in your budget_tips list
+    current_tip = cooking_tips[current_month_num - 1]
+    st.markdown(
+        f'<div class="tip-card">{current_tip}</div>',
+        unsafe_allow_html=True
+     )
+     
+     
 # Initialize the to-do list if it doesn't exist in the session state
 if 'todo_list' not in st.session_state:
     st.session_state.todo_list = []
